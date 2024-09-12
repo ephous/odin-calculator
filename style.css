@@ -4,8 +4,11 @@
     flex-direction: column;
     justify-content: space-evenly;
     --w:58vh;
-    /*height:var(--w);*/
+    --h:80vh;
+    height:var(--h);
     width:var(--w);
+    min-width: 400px;
+    min-height: 400px;
     gap: 1vh;
     background-color: black;
     padding: 2vh;
@@ -13,12 +16,16 @@
 
 #display {
     background-color: black;
-    font-size: 100px;
+    /*
+    border-color: lightslategray;
+    border-style: solid;
+    */
+    font-size: calc((var(--w) / 4));
     text-align: right;
     color: white;
-    padding: 0;
-    margin: 0;
-    flex: auto;
+    padding: 0vh 2vw;
+    margin: 0vh 8vw;
+    flex: 1;
 }
 
 #buttonpad {
@@ -28,14 +35,14 @@
     align-items: center;
     background-color: black;
     padding: 2vh;
-    flex: auto;
+    flex: 1;
 }
 
 
 .row {
     display: flex;
     justify-content: space-evenly;
-    flex: auto;
+    flex: 1;
 }
 
 button {

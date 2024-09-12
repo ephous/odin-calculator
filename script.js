@@ -30,6 +30,8 @@ function operate(a, op, b) {
     case "divide":
       return divideNumbers(a, b);
       break;
+    default:
+      return a;
   }
 }
 
@@ -72,9 +74,16 @@ function updateDisplay(e) {
   if (e.target.id == "equals") {
     lastEntryWasOp = true;
     try {
-      let dispVal = String(operate(firstNumber, op, secondNumber));
+      let retVal = operate(firstNumber, op, secondNumber);
+      let dispVal = String(retVal);
       display.textContent = dispVal.slice(0, 14); // arbitray
-      clearData();
+      
+      // allow for chaining ops...
+      firstNumber = retVal;
+      op = null;
+      secondNumber = null;
+
+      //clearData();
       return;
     } catch {
       display.textContent = "Error";
