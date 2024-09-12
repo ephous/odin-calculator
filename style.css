@@ -67,3 +67,8 @@ button {
     background-color: #FFAC1C;
     color: white;
 }
+
+.operation-pressed {
+    background-color: white;
+    color: #FFAC1C;
+}

@@ -46,21 +46,27 @@ function clearData() {
   secondNumber = null;
   op = null;
   decimalInUse = false;
-  lastEntryWasOp = false;
+  lastEntryWasOp = true;
 }
+
+function restoreOpButtonClasses() {
+    operations.forEach( x => x.className='operation')}
 
 function allClear() {
   display.textContent = "0";
+  restoreOpButtonClasses();
   clearData();
   return;
 }
-allClear(); //call immediately
 
 function updateDisplay(e) {
   const s = e.target.textContent;
 
   // clear display
   if (s == "AC") return allClear();
+  
+  // restore button colors
+  restoreOpButtonClasses();
 
   // handle equals
   if (e.target.id == "equals") {
@@ -79,7 +85,8 @@ function updateDisplay(e) {
   // store operator and leave display as-is
   // overwrites stored operator (if any)
   // uses firstNumber as 0 if display is showing 0
-  if (e.target.className == "operation") {
+  if (e.target.className.includes("operation")) {
+    e.target.className = 'operation-pressed'
     lastEntryWasOp = true;
     firstNumber = firstNumber ?? 0;
     op = e.target.id;
@@ -112,3 +119,12 @@ function updateDisplay(e) {
 
 const buttons = document.querySelectorAll("button");
 buttons.forEach((x) => x.addEventListener("click", (e) => updateDisplay(e)));
+
+const operations = document.querySelectorAll(".operation");
+/*
+operations.forEach((x) => x.addEventListener(
+    "click", (e) => e.target.className = 'operation-pressed' )
+);
+*/
+
+allClear(); //call on startup
