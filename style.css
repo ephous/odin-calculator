@@ -16,9 +16,8 @@ body {
 
 #display {
     background-color: black;
-    min-width: 36vw;
     max-width: 48vw;
-    font-size: 18vw;
+    font-size: 12vw;
     text-align: right;
     color: white;
     padding: 0vh 0vw;
