@@ -8,32 +8,21 @@ body {
     flex:auto;
     flex-direction: column;
     justify-content: space-evenly;
-    /*
-    --w:58vh;
-    --h:80vh;
-    height:var(--h);
-    width:var(--w);
-    min-width: 60vw;
-    min-height: 90vh;
-    */
-    max-width: 600px;
+    max-width: 48vw;
     gap: 1vh;
     background-color: black;
-    padding: 2vh;
+    padding: 1vh;
 }
 
 #display {
     background-color: black;
-    /*
-    border-color: lightslategray;
-    border-style: solid;
-    */
-    /*font-size: calc((var(--w) / 4));*/
-    font-size: 128px;
+    min-width: 36vw;
+    max-width: 48vw;
+    font-size: 18vw;
     text-align: right;
     color: white;
-    padding: 0vh 2vw;
-    margin: 0vh 2vw;
+    padding: 0vh 0vw;
+    margin: 0vh 0vw;
     flex: 1;
 }
 
@@ -44,7 +33,6 @@ body {
     align-items: center;
     background-color: black;
     padding: 2vh;
-    flex: 1;
 }
 
 
@@ -55,19 +43,18 @@ body {
 }
 
 button {
-    width: 12vw;
-    height: 12vw;
-    border-radius: 6vw;
-    font-size: 56px;
-    /*font-size:calc((var(--w) / 15));*/
+    width: 10vw;
+    height: 10vw;
+    border-radius: 10vw;
+    font-size: 4vw;
     font-weight: 400;
     border: none;
-    margin: 6px;
+    margin: 1vh 1vw;
     flex:auto;
 }
 
 #zero {
-  width: 26vw;
+  width: 22vw;
 }
 
 .graybutton {
