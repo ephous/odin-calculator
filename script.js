@@ -40,6 +40,7 @@ let secondNumber;
 let op;
 let decimalInUse;
 let lastEntryWasOp;
+let makeNextNumberNegative;
 
 const display = document.querySelector("#display");
 
@@ -49,6 +50,7 @@ function clearData() {
   op = null;
   decimalInUse = false;
   lastEntryWasOp = true;
+  makeNextNumberNegative = false;
 }
 
 function restoreOpButtonClasses() {
@@ -90,6 +92,27 @@ function updateDisplay(e) {
       return;
     }
   }
+  
+  if (e.target.id == "flipsign") {
+    if (lastEntryWasOp){
+        dispVal = "-0";
+        makeNextNumberNegative = true;
+    } else {
+        if (firstNumber===null){
+            dispVal = "-0";
+            makeNextNumberNegative = true;
+        } else if (secondNumber===null) {
+            firstNumber = -1*firstNumber;
+            dispVal = String(firstNumber);
+        } else {
+            secondNumber = -1*secondNumber;
+            dispVal = String(secondNumber);
+        }
+    }
+    display.textContent = dispVal;
+    return;
+  }
+
 
   // store operator and leave display as-is
   // overwrites stored operator (if any)
@@ -118,11 +141,16 @@ function updateDisplay(e) {
   }
 
   lastEntryType = "number";
+  let sgn = makeNextNumberNegative ? -1 : 1
   if (!op) {
-    firstNumber = Number(display.textContent);
+    firstNumber = sgn * Number(display.textContent);
+    dispVal = String(firstNumber);
   } else {
-    secondNumber = Number(display.textContent);
+    secondNumber = sgn * Number(display.textContent);
+    dispVal = String(secondNumber); 
   }
+  display.textContent = dispVal;
+  makeNextNumberNegative = false;
   lastEntryWasOp = false;
 }
 
