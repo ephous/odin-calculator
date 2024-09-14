@@ -1,14 +1,22 @@
+body {
+    display: flex;
+    justify-content: center;
+}
+
 #main {
     display: flex;
     flex:auto;
     flex-direction: column;
     justify-content: space-evenly;
+    /*
     --w:58vh;
     --h:80vh;
     height:var(--h);
     width:var(--w);
-    min-width: 400px;
-    min-height: 400px;
+    min-width: 60vw;
+    min-height: 90vh;
+    */
+    max-width: 600px;
     gap: 1vh;
     background-color: black;
     padding: 2vh;
@@ -20,11 +28,12 @@
     border-color: lightslategray;
     border-style: solid;
     */
-    font-size: calc((var(--w) / 4));
+    /*font-size: calc((var(--w) / 4));*/
+    font-size: 128px;
     text-align: right;
     color: white;
     padding: 0vh 2vw;
-    margin: 0vh 8vw;
+    margin: 0vh 2vw;
     flex: 1;
 }
 
@@ -49,8 +58,8 @@ button {
     width: 12vw;
     height: 12vw;
     border-radius: 6vw;
-    /*font-size: 24px;*/
-    font-size:calc((var(--w) / 15));
+    font-size: 56px;
+    /*font-size:calc((var(--w) / 15));*/
     font-weight: 400;
     border: none;
     margin: 6px;

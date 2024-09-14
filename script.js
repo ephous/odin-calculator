@@ -31,7 +31,7 @@ function operate(a, op, b) {
       return divideNumbers(a, b);
       break;
     default:
-      return a;
+      return a ?? 0;
   }
 }
 
@@ -76,7 +76,7 @@ function updateDisplay(e) {
     try {
       let retVal = operate(firstNumber, op, secondNumber);
       let dispVal = String(retVal);
-      display.textContent = dispVal.slice(0, 14); // arbitray
+      display.textContent = dispVal.slice(0, 8); // arbitray
       
       // allow for chaining ops...
       firstNumber = retVal;
