@@ -17,7 +17,8 @@ function divideNumbers(a, b) {
 
 function operate(a, op, b) {
   //debugger;
-  switch (op) {
+  console.log(a, op, b)
+;  switch (op) {
     case "add":
       return addNumbers(a, b);
       break;
@@ -40,6 +41,7 @@ let secondNumber;
 let op;
 let decimalInUse;
 let lastEntryWasOp;
+let evaluated;
 let makeNextNumberNegative;
 
 const display = document.querySelector("#display");
@@ -75,51 +77,74 @@ function updateDisplay(e) {
   // handle equals
   if (e.target.id == "equals") {
     lastEntryWasOp = true;
+    evaluated = true;
     try {
+      secondNumber = secondNumber ?? firstNumber;
       let retVal = operate(firstNumber, op, secondNumber);
       let dispVal = String(retVal);
       display.textContent = dispVal.slice(0, 8); // arbitray
       
       // allow for chaining ops...
       firstNumber = retVal;
-      op = null;
-      secondNumber = null;
-
-      //clearData();
+      
       return;
+      
     } catch {
+        
       display.textContent = "Error";
       return;
+      
     }
   }
   
   if (e.target.id == "flipsign") {
-    if (lastEntryWasOp){
-        dispVal = "-0";
-        makeNextNumberNegative = true;
+    if (evaluated) {
+        firstNumber = -1*firstNumber;
+        dispVal = String(firstNumber);
+    } else if ( (firstNumber===null) || (lastEntryWasOp)){
+        makeNextNumberNegative = makeNextNumberNegative ? false : true;
+        dispVal = makeNextNumberNegative ? "-0" : "0";
+    } else if (secondNumber===null) {
+        firstNumber = -1*firstNumber;
+        dispVal = String(firstNumber);
     } else {
-        if (firstNumber===null){
-            dispVal = "-0";
-            makeNextNumberNegative = true;
-        } else if (secondNumber===null) {
-            firstNumber = -1*firstNumber;
-            dispVal = String(firstNumber);
-        } else {
-            secondNumber = -1*secondNumber;
-            dispVal = String(secondNumber);
-        }
+        secondNumber = -1*secondNumber;
+        dispVal = String(secondNumber);
     }
+    
     display.textContent = dispVal;
     return;
   }
 
+  if (e.target.id == "percent") {
+    if (firstNumber===null) {
+        return;
+    }
+    
+    if (lastEntryWasOp) {
+        if (secondNumber===null) {
+          secondNumber = firstNumber/100;
+          dispVal = String(secondNumber);
+        } else {
+          secondNumber = secondNumber/100;
+          dispVal = String(secondNumber);  
+        }
+    } else {
+        firstNumber = firstNumber/100;
+        dispVal = String(firstNumber);
+    }
+    
+    display.textContent = dispVal;
+    return;
+  }
 
   // store operator and leave display as-is
   // overwrites stored operator (if any)
   // uses firstNumber as 0 if display is showing 0
   if (e.target.className.includes("operation")) {
-    e.target.className = 'operation-pressed'
+    evaluated = false;
     lastEntryWasOp = true;
+    e.target.className = 'operation-pressed'
     firstNumber = firstNumber ?? 0;
     op = e.target.id;
     return;
@@ -129,8 +154,10 @@ function updateDisplay(e) {
     if (decimalInUse) return;
     decimalInUse = true;
     display.textContent = lastEntryWasOp ? '0.' : display.textContent + s;
+    return;
   } else {
     display.textContent = lastEntryWasOp || display.textContent[0] == 0 ? s : display.textContent + s;
+    //return;
     /*
     if (!decimalInUse && display.textContent[0] == 0) {
       display.textContent = s;
@@ -140,9 +167,12 @@ function updateDisplay(e) {
     */
   }
 
-  lastEntryType = "number";
   let sgn = makeNextNumberNegative ? -1 : 1
-  if (!op) {
+  if (evaluated) {
+    evaluated = false;
+    firstNumber = sgn * Number(display.textContent);
+    dispVal = String(firstNumber);   
+  } else if (!op) {
     firstNumber = sgn * Number(display.textContent);
     dispVal = String(firstNumber);
   } else {
